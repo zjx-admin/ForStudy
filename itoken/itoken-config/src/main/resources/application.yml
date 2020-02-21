@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: itoken-config
+  boot:
+    admin:
+      client:
+        url: http://localhost:8084
+  cloud:
+    config:
+      label: master                       #表示服务端仓库
+      server:
+        git:
+          uri: http://192.168.2.133/itoken/itoken-config.git     #gitlab仓库地址,末尾需要加上.git，用于做服务端仓库
+          search-paths: repository                #指定存放GitLab仓库的具体目录
+          username: zjx                         #gitlab账号密码
+          password: 12345678
+  zipkin:                              #增加zipkin服务端地址
+    base-url: http://localhost:9411
+
+server:
+  port: 8888           #8888端口为默认端口，在此处修改不会生效；若想修改，则需额外创建一个bootstrap.properties文件
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info
